@@ -83,7 +83,7 @@ Prinsip: warna vibrant eksisting (`-500` / `-600`) dipertahankan untuk maskot, i
 
 ## 4. Layout, Spacing, Radius & Mobile Grid
 
-- **Viewport Standar**: `440x956` (iPhone 16 Pro Max).
+- **Viewport Standar**: `440x956` (iPhone 16 Pro Max), frame layar menggunakan sudut `48px` dengan iOS squircle smoothing `60%` (`cornerSmoothing: 0.6`) agar konsisten siap presentasi di kanvas.
 - **Grid & Margin**: Horizontal margin `24px` kiri dan kanan (lebar kolom konten `392px`), 4 kolom, gutter `16px`.
 - **Safe Area**: `iOS Status Bar` atas `54px` (Dynamic Island presisi di `x = 160`), `iOS Home Indicator` bawah `34px`.
 - **Scroll Architecture**: Frame layar terluar tidak di-scroll (`overflowDirection: NONE`); konten diletakkan di dalam `Scroll Area` vertikal dengan padding bawah minimal `140px` + `Bottom Scrim` agar konten tidak pernah tertutup `Bottom Navigation`.
@@ -92,7 +92,7 @@ Prinsip: warna vibrant eksisting (`-500` / `-600`) dipertahankan untuk maskot, i
   - `radius/sm` (`8px`): Tag mikro & elemen kecil
   - `radius/md` (`12px`): Button, Text Field, OTP Input, Dropdown
   - `radius/lg` (`16px`): Card konten & Role Card
-  - `radius/xl` (`24px`): Modal, bottom sheet, screen frame
+  - `radius/xl` (`24px`): Modal dan bottom sheet
   - `radius/full` (`999px`): Chip, Badge Token, Floating Bottom Navigation
 - **Tap Target Minimum**: `48px` untuk CTA utama, input, dan slot tab; `44px` minimum untuk Small Button, Chip, dan Dropdown Item.
 
@@ -123,7 +123,7 @@ Seluruh transisi komponen menggunakan Figma `SMART_ANIMATE` dengan `CUSTOM_SPRIN
 | `Button` | `443:1240` | 40 varian (5 Variants x 2 Sizes `48px/44px` x 4 States). `While Hovering -> Hover`, `While Pressing -> Pressed`. |
 | `Text Field` | `443:1286` | 6 state (`Default`, `Focused`, `Filled`, `Error` + Alert icon, `Success` + Check icon, `Disabled`). 3-step `On Click`. |
 | `OTP Input` | `443:1298` | 4 state (`Empty`, `Active`, `Filled`, `Error`), ukuran `56x64px`. 3-step `On Click`. |
-| `Chip` | `443:1310` | 4 varian (`Blue/Green` x `Unselected/Selected`), tinggi `44px`. Toggle `On Click`. |
+| `Chip` | `443:1310` | 6 varian (`Blue/Green` x `Unselected/Selected/Disabled`), tinggi `44px`. Toggle `On Click` (Disabled non-interaktif untuk batas maksimal). |
 | `Bottom Navigation` | `450:1149` | 4 tab (`Beranda`, `Sambung`, `Tanya`, `Profil`), `392x64px`. Sliding `Active Pill` via `On Click`. |
 | `Dropdown Item` | `444:1127` | 3 state (`Default`, `Hover`, `Selected`), tinggi `44px`. `While Hovering -> Hover`. |
 | `Dropdown` | `450:1251` | 3 state (`Closed`, `Open`, `Selected`), chevron 180 derajat + floating `Options List`. `On Click`. |
