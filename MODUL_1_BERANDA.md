@@ -9,7 +9,7 @@ Dokumen ini adalah spesifikasi produk dan UX resmi untuk **Modul Utama 1 (Berand
   - `image 13` (`517:2480`): Referensi visual jalur batu pijakan (*winding stepping-stone roadmap*)
   - `image 14` (`524:2483`): Referensi visual grafik **Ebbinghaus Forgetting Curve** pada halaman Report
 - **Contoh Kasus Utama (Persona)**: **Raka Permana** (Mahasiswa Sistem Informasi, Semester 4, Institut Teknologi PLN) mempelajari topik **Pemrograman Berorientasi Objek (PBO)**.
-- **Status**: Spesifikasi terkunci (belum masuk tahap implementasi UI).
+- **Status**: Selesai diimplementasikan di Figma (`Big Design` -> Section `Homepage (Modul 1: Diagnosa & Roadmap)` `531:1982`, 23 layar `440x956`, 103 reaksi prototype aktif, Flow Starting Point **`Hoppa Modul 1 Flow`** pada `533:1975`).
 
 ---
 

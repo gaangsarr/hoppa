@@ -33,6 +33,7 @@ Prinsip: warna vibrant eksisting (`-500` / `-600`) dipertahankan untuk maskot, i
 | **Green (Success / Action)** | `#F0FDE8` | `#D9FAC5` | `#64DD17` | `#52B813` | `#308510` (4.68:1 AA) | `#27720C` (6.00:1 AA) | `#226309` |
 | **Purple (Token / Gamification)** | `#F8EEFF` | `#EED4FF` | `#CE82FF` | `#B561EB` | `#8E33D6` (5.84:1 AA) | `#8E33D6` | `#6B21A8` |
 | **Red (Error / Destructive)** | `#FFF0F0` | `#FFD6D6` | `#FF5252` | `#E03E3E` | `#C62828` (5.62:1 AA) | `#B71C1C` (6.57:1 AA) | `#9B1C1C` |
+| **Amber (Warning / Ragu)** | `#FEF3C7` | `#FEF3C7` | `#F59E0B` | `#F59E0B` | `#92400E` (6.37:1 di `#FEF3C7` AA) | `#92400E` | `#92400E` |
 
 ### Neutral Base (`PrimitiveColors`)
 
@@ -134,6 +135,7 @@ Seluruh transisi komponen menggunakan Figma `SMART_ANIMATE` dengan `CUSTOM_SPRIN
 | `iOS Status Bar` | `444:1177` | 2 tema (`Dark`, `Light`), `440x54px`, Dynamic Island center di `x = 160`. |
 | `iOS Home Indicator` | `444:1182` | 2 tema (`Dark`, `Light`), `440x34px`. |
 | `Role Card` | `450:1322` | 2 state (`Seeker`, `Volunteer`), stacked deck `392x196px`. `On Drag` + fallback `On Click`. |
+| `Diagnostic Swipe Card` | `551:2954` | 4 varian (`Idle`, `Swiped Up`, `Swiped Right`, `Swiped Left`), 3 zona `On Drag` Smart Animate Spring + rotasi `±14°` + stempel warna + 6 properti teks. |
 | `Loading Screen` | `485:1691` | `440x956` Figma Native Motion (`2.4s`): lirik mata + kedip + alis + lompatan "Hop" + bayangan + progress bar (`Title`/`Subtitle` TEXT props). |
 | `Prototype Playground` | `451:1121` | Flow Starting Point `Hoppa Component Playground` (`440x956`) untuk uji coba seluruh komponen. |
 
