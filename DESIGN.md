@@ -86,7 +86,11 @@ Prinsip: warna vibrant eksisting (`-500` / `-600`) dipertahankan untuk maskot, i
 - **Viewport Standar**: `440x956` (iPhone 16 Pro Max), frame layar menggunakan sudut `48px` dengan iOS squircle smoothing `60%` (`cornerSmoothing: 0.6`) agar konsisten siap presentasi di kanvas.
 - **Grid & Margin**: Horizontal margin `24px` kiri dan kanan (lebar kolom konten `392px`), 4 kolom, gutter `16px`.
 - **Safe Area**: `iOS Status Bar` atas `54px` (Dynamic Island presisi di `x = 160`), `iOS Home Indicator` bawah `34px`.
-- **Scroll Architecture**: Frame layar terluar tidak di-scroll (`overflowDirection: NONE`); konten diletakkan di dalam `Scroll Area` vertikal dengan padding bawah minimal `140px` + `Bottom Scrim` agar konten tidak pernah tertutup `Bottom Navigation`.
+- **Auto Layout Layar (Standar Wajib Seluruh Section)**:
+  - **Root Screen Frame (`440x956`)**: Wajib menggunakan **`Auto Layout Vertical`** (`FIXED 440x956`, `gap: 0`, `padding: 0`, `clipsContent: true`).
+  - **Urutan Flow Vertikal**: (1) `iOS Status Bar` (`FILL` x `54px`), (2) `Main Body` / `Scroll Area` (`FILL` x `FILL`, padding horizontal `24px`) sebagai ruang konten elastis di tengah, (3) `Bottom CTA Bar` / `Keyboard Dock` (`FILL` x `HUG`/`FIXED`, bila ada), dan (4) `iOS Home Indicator` (`FILL` x `34px`).
+  - **Elemen Overlay & Dekoratif (`Absolute Position / Ignore Auto Layout`)**: Maskot mengintip di bawah (`constraints: STRETCH / MAX`), modal popup + scrim, floating dropdown menu, dan floating `Bottom Navigation` wajib menggunakan `Absolute Position` agar tetap sticky/melayang rapi tanpa bergeser saat elemen isi ditambah atau dikurangi.
+- **Scroll Architecture**: Frame layar terluar tidak di-scroll (`overflowDirection: NONE`); untuk layar panjang, konten diletakkan di dalam `Main Body / Scroll Area` (`FILL` vertikal) dengan padding bawah minimal `140px` + `Bottom Scrim` agar konten tidak pernah tertutup `Bottom Navigation`.
 - **Spacing Tokens (`Spacing & Radius`)**: Skala 4/8pt (`space/4`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`).
 - **Corner Radius Tokens**:
   - `radius/sm` (`8px`): Tag mikro & elemen kecil
