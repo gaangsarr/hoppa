@@ -105,12 +105,15 @@ Prinsip: warna vibrant eksisting (`-500` / `-600`) dipertahankan untuk maskot, i
 
 ## 5. Elevation & Motion System
 
-### Elevation & Tactile 3D Effect Styles
-- `elevation/card`: Soft shadow `0 4px 16px rgba(28, 40, 51, 0.06)` untuk kartu permukaan putih.
-- `elevation/floating`: Elevated shadow `0 8px 24px rgba(28, 40, 51, 0.12)` untuk Floating Bottom Navigation & Dropdown Menu.
-- `elevation/tactile-primary|success|danger|neutral`: Hard bottom shadow `0 4px 0` (warna `-800` atau `blue-100`) + inner highlight atas putih `22%` untuk efek tombol 3D.
-- `elevation/tactile-pressed`: Hard bottom shadow `0 1px 0` untuk umpan balik tombol tertekan.
-- `shadow-putih`: Inner highlight eksisting yang tetap dipertahankan untuk elemen glossy tertentu.
+### Elevation & Tactile 3D Effect Styles (Strict Zero-Blur)
+- **Aturan Mutlak**: **NOL shadow buram (`radius: 0`)**, **NOL glow/halo pucat**, **NOL garis putus-putus (*dashed border*)**, **NOL *glassmorphism***, dan **NOL *pastel pill soup***.
+- `elevation/tactile-card`: Border solid `2px` (`INSIDE`) `#CBD5E1` + hard bottom lip `0 4px 0 #CBD5E1` (`radius: 0, spread: 0`) untuk kartu permukaan putih.
+- `elevation/tactile-small`: Border solid `2px` (`INSIDE`) + hard bottom lip `0 3px 0` untuk tombol kecil (`Back Button`, `Terima`, `Token Pill`, chip, ikon keycap).
+- `elevation/tactile-primary|success|purple|danger`: Border solid `2px` (`INSIDE`) + hard bottom lip `0 4px 0` (warna `-800`) untuk tombol utama, kartu highlight, dan launcher.
+- `elevation/tactile-modal`: Border solid `2px` (`INSIDE`) + hard bottom lip `0 6px 0` untuk modal overlay dan kartu perayaan.
+- `elevation/tactile-recessed`: `INNER_SHADOW` (`offset: 0, 2`, `radius: 0`, `#E2E8F0` atau `#460F75`) untuk input kosong, *search bar*, dan track *segmented switcher*.
+- `elevation/tactile-pressed`: Hard bottom lip `0 1px 0` untuk umpan balik tombol tertekan.
+- **Anti-Crop Rule**: Selalu set `clipsContent = false` pada container kartu/baris taktil (atau bungkus lip di dalam kotak transparan dengan `paddingBottom: 3` seperti `Back Button` `1049:5557`) agar bottom lip 3D tidak pernah terpotong datar.
 
 ### Motion Curves (`Snappy Tactile Spring`)
 Seluruh transisi komponen menggunakan Figma `SMART_ANIMATE` dengan `CUSTOM_SPRING` (`mass: 1`):
@@ -129,13 +132,37 @@ Seluruh transisi komponen menggunakan Figma `SMART_ANIMATE` dengan `CUSTOM_SPRIN
 | `Text Field` | `443:1286` | 6 state (`Default`, `Focused`, `Filled`, `Error` + Alert icon, `Success` + Check icon, `Disabled`). 3-step `On Click`. |
 | `OTP Input` | `443:1298` | 4 state (`Empty`, `Active`, `Filled`, `Error`), ukuran `56x64px`. 3-step `On Click`. |
 | `Chip` | `443:1310` | 6 varian (`Blue/Green` x `Unselected/Selected/Disabled`), tinggi `44px`. Toggle `On Click` (Disabled non-interaktif untuk batas maksimal). |
-| `Bottom Navigation` | `450:1149` | 4 tab (`Beranda`, `Sambung`, `Tanya`, `Profil`), `392x64px`. Sliding `Active Pill` via `On Click`. |
+| `Bottom Navigation` | `450:1149` | 4 tab (`Beranda`, `Sambung`, `Tanya`, `Profil`), `392x64px`, dock putih dengan bibir taktil biru es (`#BAE6FD`) & `Active Pill` 3D taktil biru (`elevation/tactile-primary`) meluncur via `On Click`. |
 | `Dropdown Item` | `444:1127` | 3 state (`Default`, `Hover`, `Selected`), tinggi `44px`. `While Hovering -> Hover`. |
 | `Dropdown` | `450:1251` | 3 state (`Closed`, `Open`, `Selected`), chevron 180 derajat + floating `Options List`. `On Click`. |
 | `iOS Status Bar` | `444:1177` | 2 tema (`Dark`, `Light`), `440x54px`, Dynamic Island center di `x = 160`. |
 | `iOS Home Indicator` | `444:1182` | 2 tema (`Dark`, `Light`), `440x34px`. |
 | `Role Card` | `450:1322` | 2 state (`Seeker`, `Volunteer`), stacked deck `392x196px`. `On Drag` + fallback `On Click`. |
 | `Diagnostic Swipe Card` | `551:2954` | 4 varian (`Idle`, `Swiped Up`, `Swiped Right`, `Swiped Left`), 3 zona `On Drag` Smart Animate Spring + rotasi `±14°` + stempel warna + 6 properti teks. |
+| `Token Pill Badge` | `618:3024` | 4 varian (`Default` ungu, `Cost` amber `-1 Token`, `Reward` hijau `+1 Token`, `Empty` merah `0 Token`), properti teks `Label`. |
+| `Star Rating Input` | `618:3057` | 2 varian (`Empty`, `Rated` 5 bintang kuning amber), interaktif `On Click` Smart Animate Spring untuk ulasan pasca-panggilan Seeker. |
+| `Call Control Dock` | `618:3114` | 2 varian (`Mode=Audio`, `Mode=Sharing`), tersusun dari 5 tombol aksi independen (`Call Button: Mute` `741:4053` merah saat mute, `Speaker` `741:4069` biru aktif, `Samarkan` `741:4082`, `Layar` `741:4093`, `Akhiri` `741:4094`). |
+| `Report Action Button` | `741:4042` | 2 varian (`Default`, `Active`), tombol laporan reusable `40x40px` untuk sesi Call & halaman lainnya. |
+| `Report Reason Selector` | `825:4354` | 4 varian interaktif (`Harassment`, `Danger`, `Privacy`, `Spam`), pemilih alasan pelanggaran radio merah via `On Click`. |
+| `Report Violation Modal` | `825:4367` | Komponen kartu modal pelanggaran reusable (memuat `Report Reason Selector` + CTA merah `Kirim Laporan & Akhiri Sesi` + `Batal`). |
+| `Leaderboard Subject Board` | `835:4738` | 5 varian interaktif (2 mode cakupan `Kampusku (IT PLN)` vs `Nasional` + dropdown `Mata Kuliah` searchable untuk 48+ matkul: `UI/UX Design`, `Picker Open`, `Basis Data`), panggung ungu penuh + podium 3D bermahkota `#1` + bottom sheet putih dengan baris pengguna ungu solid (ref `image 16`). |
+| `Leaderboard Course Dropdown` | `839:4521` | 10 varian interaktif (`Closed`/`Open` x 5 mata kuliah: `UI/UX Design`, `Basis Data`, `PBO`, `APS`, `Kalkulus`), kapsul transparan di panggung ungu + popover pencarian `Cari dari 48+ mata kuliah...` & scrim penutup (40 reaksi `On Click` Smart Animate Spring). |
+| `Celebration Sunburst Backdrop` | `851:4324` | 4 fase loop rotasi tak terbatas (`0° -> 10° -> 20° -> 30°` `Linear 0.9s` + snap instan simetris 12 sinar) dengan cahaya pusat lembut & 4 bintang berkilau ungu, terpasang di layar perayaan `15. Post-Call Volunteer`. |
+| `Celebration Sunburst Backdrop (Green)` | `889:4147` | Varian hijau Hoppa (`#246A0A` + sinar `#52B813`) dengan 4 fase loop rotasi 30° simetris & bintang berkilau, terpasang di `11a. Post-Call Seeker: Rating & Ulasan (PBO)`. |
+| `Tanya Boost Button` | `927:4847` | 2 varian interaktif (`Active=Off` <-> `Active=On` biru lembut + angka naik `+1`) untuk mendorong pertanyaan di Modul 3 `Tanya` secara gratis. |
+| `Tanya Helpful Vote Button` | `927:4858` | 2 varian interaktif (`Active=Off` <-> `Active=On` hati merah lembut + angka naik `+1`) pada komentar/jawaban di Detail Pertanyaan `Tanya`. |
+| `Tanya Reply Composer` | `927:4873` | 2 varian interaktif (`State=Empty` <-> `State=Filled`) untuk kolom balas cepat ala X/Threads di Detail Pertanyaan `Tanya`. |
+| `Voice Mode Selector` | `741:4153` | 3 varian interaktif (`Soft`, `Neutral`, `Chill`) untuk memilih karakter suara anonim (`Hangat / Soft`, `Androgini / Gender-neutral`, `Calm / Chill`). |
+| `Review Tag Chip` | `778:4136` | 2 varian (`Off`, `On` biru taktil), chip apresiasi pasca-panggilan interaktif `On Click`. |
+| `Review Note Input` | `778:4145` | 2 varian (`Empty`, `Filled`), kolom catatan apresiasi pasca-panggilan interaktif `On Click`. |
+| `Leaderboard Row` | `618:3131` | 2 varian (`Highlight=False`, `True` untuk posisi pengguna), 4 properti teks (`Rank`, `Name`, `Campus`, `Stats`). |
+| `Live Seeker Card` | `618:3180` | 2 varian (`Match=Highlighted` border biru + chip hobi, `Default`), 5 properti teks (`Alias`, `Subject`, `Title`, `IceBreaker`, `Timer`) + CTA `+1 Token`. |
+| `Question Composer Input` | `692:3856` | 2 varian (`Empty`, `Filled`), klik untuk mengisi Judul & Penjelasan pertanyaan secara mandiri via `Change To` Smart Animate. |
+| `Subject Picker Chip` | `692:3894` | 3 varian (`Empty`, `Open` dengan floating dropdown 4 bidang keahlian, `Selected` `PBO (OOP)` + tombol reset `×`), interaktif `On Click`. |
+| `Attachment Picker Chip` | `692:3941` | 3 varian (`Empty`, `Open` dengan floating picker Kamera/Galeri/Dokumen, `Attached` `Nilai.java` + tombol hapus `×`), interaktif `On Click`. |
+| `Hobby Match Toggle` | `699:3845` | 2 varian (`Off` netral, `On` ungu pastel + tombol knob geser `Smart Animate Spring`), interaktif `On Click`. |
+| `Help Mode Selector` | `710:3923` | 3 varian (`Selected=None`, `Call`, `Tanya`), layout 2 kolom sejajar dengan radio checkmark iOS + indikator biaya bersih, interaktif `On Click`. |
+| `Live Radar Pulse` | `725:4139` | 4 fase loop kontinyu (`After Delay 0.55s` Smart Animate Ease Out, tanpa blur): 3 gelombang sonar biru mengembang & memudar mulus + bintang kilau + maskot Hoppa mengambang. |
 | `Loading Screen` | `485:1691` | `440x956` Figma Native Motion (`2.4s`): lirik mata + kedip + alis + lompatan "Hop" + bayangan + progress bar (`Title`/`Subtitle` TEXT props). |
 | `Prototype Playground` | `451:1121` | Flow Starting Point `Hoppa Component Playground` (`440x956`) untuk uji coba seluruh komponen. |
 
@@ -157,3 +184,46 @@ Seluruh transisi komponen menggunakan Figma `SMART_ANIMATE` dengan `CUSTOM_SPRIN
 - **Mengapa Tactile 3D Lip + Snappy Spring?** Menciptakan kesan gamified yang memotivasi mahasiswa belajar konsisten tanpa membuat animasi terasa lambat.
 - **Mengapa Hybrid Surface?** Layar Auth/Onboarding membangun ikatan emosional lewat maskot & warna, sedangkan layar harian (Beranda, Sambung, Tanya, Profil) fokus pada kejernihan informasi agar mata tidak cepat lelah.
 - **Mengapa `Scroll Area` terpisah dari `Bottom Navigation`?** Menjamin navigasi bawah tetap stabil saat scrolling dan bebas dari pergeseran posisi animasi di prototype mobile.
+
+---
+
+## 9. Hoppa Playful Tactile 3D Restyle Playbook (Memori Standar Modul)
+
+Bagian ini adalah panduan wajib saat melakukan *restyle* modul lain (**Beranda / Modul 1**, **Tanya / Modul 3**, **Profil / Modul 4**, **Auth & Onboarding**) agar seluruh aplikasi terasa **satu keluarga — playful, ceria, gamified ala Duolingo, namun tetap bersih, rapi, dan tidak norak**.
+
+### A. Palet Resmi Wajib (Jangan Geser ke Warna Generic/Tailwind)
+- **Hoppa Blue**: `#0277BD` (Header & CTA utama), `#015C94` (3D lip & pita gelap), `#29B6F6` / `#38BDF8` (aksen langit playful), `#E0F2FE` / `#BAE6FD` (stage pastel & border cerah).
+- **Hoppa Green (Seeker / Action)**: `#308510` / `#2E7D32` (utama), `#226309` / `#1B5E20` (3D lip), `#F0FDF4` / `#DCFCE7` (permukaan kartu hangat & motif lengkung).
+- **Hoppa Purple (Volunteer / Leaderboard — RESMI, BUKAN `#7C3AED`!)**:
+  - Hero Screen Background: `#7C22C7`
+  - Card / Highlight / CTA: `#8E33D6`
+  - 3D Lip / Podium Block / Dropdown Trigger: `#6B21A8`
+  - Recessed Track / Deep Shadow: `#5A1694` / `#460F75` / `#4C127D`
+  - Hordeng Teater 2-Tone: `#5E1799` (utama) + `#430D70` (bayangan lipatan) + tali emas `#FBBF24` / `#B45309`
+  - Permukaan Kartu Lavender: `#FAF5FF` / `#F3E8FF` / `#E9D5FF`
+- **Hoppa Medal & Sparkle**: Emas `#FBBF24` / `#FDE047` (lip `#B45309`), Perak `#E2E8F0` / `#CBD5E1` (lip `#475569`), Perunggu `#E08E45` / `#FDBA74` (lip `#9A3412`).
+- **Hoppa Red (Destructive / Error)**: `#DC2626` / `#C62828` (lip `#B91C1C` / `#9B1C1C`).
+
+### B. Resep Playful-Yet-Tidy (Standar Visual Setara Leaderboard & Sambung)
+1. **Header Tidak Boleh Polos**:
+   - Gunakan live instance **`Dashboard Header Backdrop` (`1111:5853`)** (`440x176`, pita diagonal 2-tone komik, gelembung geometris halus, 3 sparkle bintang di ruang kosong, rim bawah 3D) pada header biru dashboard.
+2. **Kartu Hero & Aksi Utama**:
+   - Hindari kotak putih steril untuk kartu aksi utama/teaser. Gunakan tint hangat lembut (`#F0FDF4`, `#FAF5FF`, `#F0F9FF`) + border `2px` + lip `4px` + aksen geometris lengkung 2-tone & 2 sparkle mini di sisi yang bebas teks.
+   - Kartu peran / hero (`Role Card` `450:1322`) memakai pita diagonal 2-tone, lingkaran sorot lembut di belakang maskot, sparkle mini, dan kapsul gelap tipis (`rgba(0,0,0,0.16)`) untuk hint interaktif.
+3. **Empty State Ceria**:
+   - Jangan gunakan ikon kecil dalam lingkaran polos + tombol outline kosong.
+   - Pasang **panggung lingkaran pastel (`#E0F2FE` + border `#BAE6FD`) + bayangan lantai + 2–3 sparkle** dengan **maskot buaya berdiri ekspresif**, serta CTA **solid Tactile 3D** (mis. biru `#0277BD` + lip `4px #015C94` + teks putih).
+4. **Tipografi Editorial Inline (Zero Pastel Pill Soup)**:
+   - Metadata di dalam kartu riwayat/antrean/thread (`#PBO`, `#UI/UX`, `#Basis Data`, `★ 5.0`, `22 menit`, `✓ Terjawab`) ditulis langsung sebagai **teks inline berwarna** (Hoppa Blue `#0277BD` / Amber `#D97706` / Slate `#64748B`), **BUKAN** dibungkus kotak pill pastel.
+5. **Komponen Wajib & Aset Reusable Terkini**:
+   - **`Back Button`** (`1049:5557`, `Komponen`): 4 varian (`Light`/`OnColor` x `Default`/`Pressed`), lip `3px` aman di dalam box `44x44` (`paddingBottom: 3`).
+   - **`Toggle Switch`** (`996:5205`, `Komponen`): Duolingo Tactile 3D biru (`52x32`).
+   - **`Dashboard Header Backdrop`** (`1111:5853`, `Komponen`): Header biru playful 2-tone `440x176`.
+   - **`Leaderboard Stage Curtains`** (`1100:6101`, `Komponen`): Hordeng teater ungu 2-tone + tali emas `440x600`.
+   - **`Leaderboard Stage Spotlight`** (`1100:6121`, `Komponen`): Sorotan lampu panggung + floor pool + 4 sparkle `440x600`.
+   - **`Role Card`** (`450:1322`, `Komponen`): Varian `Seeker` & `Volunteer` dengan pola komik 2-tone & kapsul swipe.
+   - **Maskot Berdiri (`Maskot` `23:2`)**: `Telepon Berdiri` (`1021:5029`), `Tulis Pertanyaan Berdiri` (`1032:5261`), `Ketawa Medali Emas` (`1094:5373`), `Ketawa Medali Perak` (`1094:5441`), `Ketawa Medali Perunggu` (`1094:5509`).
+6. **Pola Figma Native Motion (`2.4s` Seamless Loop)**:
+   - Gunakan `applyManualKeyframeTrack` pada timeline top-level frame (`2.4s`, titik `t=0` = `t=2.4`).
+   - **Catatan API**: Sublayer di dalam `INSTANCE` tidak bisa diberi keyframe langsung — *detach* hanya jika sublayer (seperti pupil `Vector 19`/`Vector 20`, medali, atau 4 sparkle) perlu dianimasikan terpisah pada timeline layar.
+   - Gerakan khas Hoppa: loncat + *squash & stretch* (`TRANSLATION_Y` + `SCALE_XY`) dengan *follow-through* mahkota; lirik mata kanan-kiri (`TRANSLATION_X ±3.2px` pada pupil); goyang santai (`ROTATION ±6.5°` + mini bob); sapuan sorot lampu & kerlip sparkle bergantian (*staggered*).
